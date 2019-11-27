@@ -1,0 +1,22 @@
+div.ball {
+  width: 0;
+  height: 0;
+  padding: 25px;
+  border-radius: 50%;
+  margin: auto;
+  background: darksalmon radial-gradient(at 30% 30%, #FFEBEE, darksalmon);
+  animation: bounce 3s cubic-bezier(.5, .1, 1, .37) forwards; /*forwards: 目标将保留由执行期间遇到的最后一个关键帧计算值*/
+}
+
+@keyframes bounce {
+  60%, 80%, to {
+    transform: translateY(300px);
+    animation-timing-function: cubic-bezier(.215, .61, .355, 1); /*相对于不假思索就用一对相反的缓动曲线而言，用符合现实的缓动曲线其实更好*/
+  }
+  70% {
+    transform: translateY(260px);
+  }
+  90% {
+    transform: translateY(290px);
+  }
+}
