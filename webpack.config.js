@@ -6,19 +6,33 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
-  mode: 'production', // 打包模式，默认为production
+  mode: 'development', // 打包模式，默认为production
   entry: './src/index.js', //入口
   output: { // 出口
     filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
     path: path.resolve(__dirname, 'dist') // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
   },
   module: {
+    // loader的特点: 单一职责
+    // loader加载顺序: 从右(下)到左(上)
+    // rules中只有一个loader且不用配置参数时，use的值可以直接写一个字符串即可
     rules: [
       {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [ // 预设，可以理解为插件集合
+              '@babel/preset-env' // es2015 转 es5
+            ],
+            plugins: [
+              ['@babel/plugin-proposal-decorators', { 'decoratorsBeforeExport': true }] // 装饰器是实验性功能，所以需要额外的插件对它专门做处理
+            ]
+          }
+        }
+      },
+      {
         test: /\.css$/,
-        // loader的特点: 单一职责
-        // loader加载顺序: 从右(下)到左(上)
-        // 只有一个loader且不用配置参数时，use的值可以不用数组，直接写一个字符串即可
         use: [
           MiniCSsExtractPlugin.loader, // 将css打包成一个文件，并以link的形式插入到<head></head>中
           'css-loader', // 解释(interpret) @import 和 url()
@@ -58,12 +72,12 @@ module.exports = {
       }
     ]
   },
-  optimization: { // 优化
-    minimizer: [ // mode 改成 production 才会生效
-      new TerserJSPlugin({}), // 使用 minimizer 选项时，必须也要加上这个插件才能压缩 js 文件
-      new OptimizeCSSAssetsPlugin({}) // 压缩 css 文件
-    ]
-  },
+  // optimization: { // 优化
+  //   minimizer: [ // mode 改成 production 才会生效
+  //     new TerserJSPlugin({}), // 使用 minimizer 选项时，必须也要加上这个插件才能压缩 js 文件
+  //     new OptimizeCSSAssetsPlugin({}) // 压缩 css 文件
+  //   ]
+  // },
   plugins: [ // 插件
     new HtmlWebpackPlugin({ // 生成一个开发服务用的入口文件
       template: './src/index.html', // 生成入口文件所需要参考的模板
