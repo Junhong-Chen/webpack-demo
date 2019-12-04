@@ -1,4 +1,4 @@
-## 本地安装webpack
+## webpack本地安装
 - webpack、webpack-cli
 
 ## webpack配置
@@ -17,3 +17,6 @@
 ## babel: es2015 to es5
 - babel-loader、@babel/core、@babel/preset-env
 - 一些实验性的功能需要额外的 plugin 来处理，比如 es2016 中新增的装饰器
+
+## babel: 抽离 helper 函数
+- @babel/plugin-transform-runtime、@babel/runtime(这个在生产环境中也需要使用)

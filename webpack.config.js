@@ -26,10 +26,13 @@ module.exports = {
               '@babel/preset-env' // es2015 转 es5
             ],
             plugins: [
-              ['@babel/plugin-proposal-decorators', { 'decoratorsBeforeExport': true }] // 装饰器是实验性功能，所以需要额外的插件对它专门做处理
+              ['@babel/plugin-proposal-decorators', { 'decoratorsBeforeExport': true }], // 装饰器是实验性功能，所以需要额外的插件对它专门做处理
+              "@babel/plugin-transform-runtime" // 抽离 helper 函数进行复用，减小代码体积。除此之外，babel 还为源代码的非实例方法（Object.assign，实例方法是类似这样的 "foobar".includes("foo")）和 babel-runtime/helps 下的工具函数自动引用了 polyfill。这样避免了污染全局命名空间，非常适合于 JavaScript 库和工具包的实现。
             ]
           }
-        }
+        },
+        include: path.resolve(__dirname, 'src'), // 在什么地方找js文件
+        exclude: /node_modules/ // 不在什么地方找js文件
       },
       {
         test: /\.css$/,
