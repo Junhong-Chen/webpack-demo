@@ -18,6 +18,12 @@ module.exports = {
     // rules中只有一个loader且不用配置参数时，use的值可以直接写一个字符串即可
     rules: [
       {
+        enforce: 'pre', // pre 无视 loader 的顺序，优先加载；与之相反的是 post；默认是 normal
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
         test: /\.js$/,
         use: {
           loader: 'babel-loader',

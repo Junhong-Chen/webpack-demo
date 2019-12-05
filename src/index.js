@@ -1,5 +1,6 @@
 // 两种引入css的方式:
-import url from './index.css'
+// import style from './index.css'
+require('./index.css')
 require('./index.scss')
 
 const str = require('./demo.js')

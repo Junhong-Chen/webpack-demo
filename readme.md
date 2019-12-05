@@ -20,3 +20,8 @@
 
 ## babel: 抽离 helper 函数
 - @babel/plugin-transform-runtime、@babel/runtime(这个在生产环境中也需要使用)
+
+## eslint: 校验代码
+- eslint、eslint-loader
+- 配置 .eslintrc.json 文件
+- 仅当您使用 eslint 本身不支持的类型（流）或实验功能时，才需要使用babel-eslint
