@@ -3,6 +3,13 @@
 require('./index.css')
 require('./index.scss')
 
+/* eslint-disable */
+// import $ from 'expose-loader?$!jquery' // 内联loader，可读性不好，建议配置在webpack中
+import $ from 'jquery'
+/* eslint-disable */
+// console.log(window.$)
+console.log(window.$) // CDN
+
 const str = require('./demo.js')
 
 console.log(str)

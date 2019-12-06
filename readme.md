@@ -25,3 +25,8 @@
 - eslint、eslint-loader
 - 配置 .eslintrc.json 文件
 - 仅当您使用 eslint 本身不支持的类型（流）或实验功能时，才需要使用babel-eslint
+
+## 引入全局变量
+- (1)expose-loader: 将其暴露在 window 对象上
+- (2)providePlugin: 自动加载模块，类型全局 mixin
+- (3)使用 CDN，然后在 webpack 中忽略这个模块(目的是防止已经使用了 CDN 引入后，还在代码中额外引入)

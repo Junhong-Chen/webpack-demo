@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSsExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   mode: 'development', // 打包模式，默认为production
@@ -17,6 +18,10 @@ module.exports = {
     // loader加载顺序: 从右(下)到左(上)
     // rules中只有一个loader且不用配置参数时，use的值可以直接写一个字符串即可
     rules: [
+      // {
+      //   test: require.resolve('jquery'),
+      //   use: 'expose-loader?$' // 引用 jquery 时，将它设置为 window 对象上的 $ 属性
+      // },
       {
         enforce: 'pre', // pre 无视 loader 的顺序，优先加载；与之相反的是 post；默认是 normal
         test: /\.js$/,
@@ -99,8 +104,14 @@ module.exports = {
     }),
     new MiniCSsExtractPlugin({ // 将css单独打包成一个文件
       filename: 'main.css', // 文件名
+    }),
+    new webpack.ProvidePlugin({ // 自动加载模块
+      $: 'jquery' // 相当于在每个模块中都写了 import $ from 'jquery'
     })
   ],
+  externals: { // 忽略的模块(依赖)
+    jquery: '$' // 不对 jquery 这个模块进行处理
+  },
   devServer: { // 开发服务器
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段
     port: 3000, // 端口
