@@ -18,13 +18,36 @@ module.exports = {
     // loader加载顺序: 从右(下)到左(上)
     // rules中只有一个loader且不用配置参数时，use的值可以直接写一个字符串即可
     rules: [
+      {
+        test: /\.html$/,
+        use: 'html-loader'
+      },
+      // {
+      //   test: /\.(png|jpg|gif)$/,
+      //   use: {
+      //     loader: 'file-loader',
+      //     options: {
+      //       esModule: false // 这里要申明不是 esModule
+      //     }
+      //   }
+      // },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            esModule: false,
+            limit: 200 * 1024 // 当图片大小小于 200kb 时转成 base64
+          }
+        }
+      },
       // {
       //   test: require.resolve('jquery'),
       //   use: 'expose-loader?$' // 引用 jquery 时，将它设置为 window 对象上的 $ 属性
       // },
       {
-        enforce: 'pre', // pre 无视 loader 的顺序，优先加载；与之相反的是 post；默认是 normal
         test: /\.js$/,
+        enforce: 'pre', // pre 无视 loader 的顺序，优先加载；与之相反的是 post；默认是 normal
         exclude: /node_modules/,
         loader: 'eslint-loader',
       },

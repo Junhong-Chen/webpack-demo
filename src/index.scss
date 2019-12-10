@@ -20,3 +20,14 @@ div.ball {
     transform: translateY(290px);
   }
 }
+
+img {
+  width: 100px;
+}
+
+.background-image{
+  width: 100px;
+  height: 56px;
+  background: url('../static/img/rickandmorty.jpg'); // css-loader 会将它转成 url(require('../static/img/rickandmorty.jpg'))
+  background-size: cover;
+}
