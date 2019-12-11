@@ -10,9 +10,9 @@ import $ from 'jquery'
 // console.log(window.$)
 console.log(window.$) // CDN
 
-import rickandmorty from '../static/img/rickandmorty.jpg' // 这里也可以用 require 语法
+import green from '../static/img/green.jpg' // 这里也可以用 require 语法
 const image = new Image()
-image.src = rickandmorty
+image.src = green
 document.body.appendChild(image)
 
 

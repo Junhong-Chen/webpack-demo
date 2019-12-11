@@ -11,7 +11,8 @@ module.exports = {
   entry: './src/index.js', //入口
   output: { // 出口
     filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
-    path: path.resolve(__dirname, 'dist') // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
+    path: path.resolve(__dirname, 'dist'), // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
+    publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
   module: {
     // loader的特点: 单一职责
@@ -37,7 +38,9 @@ module.exports = {
           loader: 'url-loader',
           options: {
             esModule: false,
-            limit: 200 * 1024 // 当图片大小小于 200kb 时转成 base64
+            limit: 100 * 1024, // 当图片大小小于 100kb 时转成 base64
+            outputPath: 'img/', // 打包到 img 目录下
+            publicPath: '' // 在图片被打包时加上一个路径前缀
           }
         }
       },
@@ -126,7 +129,7 @@ module.exports = {
       }
     }),
     new MiniCSsExtractPlugin({ // 将css单独打包成一个文件
-      filename: 'main.css', // 文件名
+      filename: 'css/main.css', // 在css目录中生成 main.css
     }),
     new webpack.ProvidePlugin({ // 自动加载模块
       $: 'jquery' // 相当于在每个模块中都写了 import $ from 'jquery'
