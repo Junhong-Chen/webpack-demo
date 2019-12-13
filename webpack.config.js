@@ -1,5 +1,5 @@
 // webpack 是 node 写出来的，它要使用 node 的写法
-const path = require('path') // 引入path模块
+const path = require('path') // 引入 path 模块
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSsExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin');
@@ -8,9 +8,14 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'development', // 打包模式，默认为production
-  entry: './src/index.js', //入口
+  // entry: './src/index.js', //入口
+  entry: { // 多入口
+    index: './src/index.js',
+    demo: './src/demo.js'
+  },
   output: { // 出口
-    filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
+    // filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
+    filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
     path: path.resolve(__dirname, 'dist'), // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
     publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
@@ -126,7 +131,13 @@ module.exports = {
       minify: { // 打包压缩配置项
         removeAttributeQuotes: true, // 删除属性的双引号
         collapseWhitespace: true // 折叠空行
-      }
+      },
+      chunks: ['index'] // 需要引入的 js 文件名，可写多个
+    }),
+    new HtmlWebpackPlugin({ // 多页面就用多个 HtmlWebpackPlugin() 来产生多个 html 文件
+      template: './src/demo.html',
+      filename: 'demo.html',
+      chunks: ['demo']
     }),
     new MiniCSsExtractPlugin({ // 将css单独打包成一个文件
       filename: 'css/main.css', // 在css目录中生成 main.css

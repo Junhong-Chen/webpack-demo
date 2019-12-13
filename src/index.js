@@ -16,7 +16,7 @@ image.src = green
 document.body.appendChild(image)
 
 
-const str = require('./demo.js')
+const str = require('./demo.js') // 因为 babel 会把 es2015 模块转换成符合 commonjs 规范的模块，所以可以混用两者的模块语法
 
 console.log(str)
 

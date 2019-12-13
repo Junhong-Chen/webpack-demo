@@ -32,10 +32,13 @@
 - 使用 CDN，然后在 webpack 中忽略这个模块(目的是防止已经使用了 CDN 引入后，还在代码中额外引入)
 
 ## 处理图片
-- 在js中: file-loader 会生成一张以 hash 命名的图片，并打包到 build 目录下。如果希望将较小的图片转成 base64 来减少请求，可以使用 url-loader ，如果图片不满足转 base64 的要求，它会继续使用 file-loader 来解析，也就是说它自身包含了 file-loader ，也更建议直接使用它(url-loader)
+- 在js中: file-loader 会生成一张以 hash 命名的图片，并打包到 build 目录下。如果希望将较小的图片转成 base64 来减少请求，可以使用 url-loader，如果图片不满足转 base64 的要求，它会继续使用 file-loader 来解析，也就是说它自身包含了 file-loader，也更建议直接使用它(url-loader)
 - 在css中: css-loader 会将 url() 中的路径转成 require() 的形式引入
 - 在html中: html-withimg-loader 或 html-loader 会解析 html 中 img 的路径
 
 ## 资源文件打包分类
 - image: url-loader
 - css: mini-css-extract-plugin
+
+## 多页面应用打包
+- html: html-webpack-plugin
