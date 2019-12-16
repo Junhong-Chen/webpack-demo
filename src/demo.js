@@ -11,3 +11,4 @@ function* listColors() {
 }
 const colors = listColors()
 console.log(colors.next())
+console.lo('source-map')

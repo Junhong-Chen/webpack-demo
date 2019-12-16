@@ -7,15 +7,15 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
-  mode: 'development', // 打包模式，默认为production
-  // entry: './src/index.js', //入口
-  entry: { // 多入口
-    index: './src/index.js',
-    demo: './src/demo.js'
-  },
+  mode: 'production', // 打包模式，默认为production
+  entry: './src/index.js', // 入口
+  // entry: { // 多入口
+  //   index: './src/index.js',
+  //   demo: './src/demo.js'
+  // },
   output: { // 出口
-    // filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
-    filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
+    filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
+    // filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
     path: path.resolve(__dirname, 'dist'), // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
     publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
@@ -132,13 +132,13 @@ module.exports = {
         removeAttributeQuotes: true, // 删除属性的双引号
         collapseWhitespace: true // 折叠空行
       },
-      chunks: ['index'] // 需要引入的 js 文件名，可写多个
+      // chunks: ['index'] // 需要引入的 js 文件名，可写多个
     }),
-    new HtmlWebpackPlugin({ // 多页面就用多个 HtmlWebpackPlugin() 来产生多个 html 文件
-      template: './src/demo.html',
-      filename: 'demo.html',
-      chunks: ['demo']
-    }),
+    // new HtmlWebpackPlugin({ // 多页面就用多个 HtmlWebpackPlugin() 来产生多个 html 文件
+    //   template: './src/demo.html',
+    //   filename: 'demo.html',
+    //   chunks: ['demo']
+    // }),
     new MiniCSsExtractPlugin({ // 将css单独打包成一个文件
       filename: 'css/main.css', // 在css目录中生成 main.css
     }),
@@ -146,14 +146,16 @@ module.exports = {
       $: 'jquery' // 相当于在每个模块中都写了 import $ from 'jquery'
     })
   ],
-  externals: { // 忽略的模块(依赖)
-    jquery: '$' // 不对 jquery 这个模块进行处理
-  },
   devServer: { // 开发服务器
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段
     port: 3000, // 端口
     progress: true, // 进度条显示
     compress: false, // gzip 压缩
     open: false // 运行后打开浏览器
+  },
+  // 此选项控制是否生成，以及如何生成 source-map。reference-link: https://www.webpackjs.com/configuration/devtool/
+  devtool: 'source-map', // 这个配置('source-map')会将整个 source map 作为一个单独的文件生成，在生成环境中不建议使用
+  externals: { // 忽略的模块(依赖)
+    jquery: '$' // 不对 jquery 这个模块进行处理
   }
 }
