@@ -155,6 +155,12 @@ module.exports = {
   },
   // 此选项控制是否生成，以及如何生成 source-map。reference-link: https://www.webpackjs.com/configuration/devtool/
   devtool: 'source-map', // 这个配置('source-map')会将整个 source map 作为一个单独的文件生成，在生成环境中不建议使用
+  watch: true, // 编译时监听文件变化，实时更新编译后的文件
+  watchOptions: {
+    poll: 1000, // 每隔 1000 ms 检查一次变动
+    aggregateTimeout: 500, // 在重新构建前增加延迟，也就是防抖，默认值是 300
+    ignored: /node_modules/ // 忽略对这个文件的检查
+  },
   externals: { // 忽略的模块(依赖)
     jquery: '$' // 不对 jquery 这个模块进行处理
   }

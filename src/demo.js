@@ -11,4 +11,4 @@ function* listColors() {
 }
 const colors = listColors()
 console.log(colors.next())
-console.lo('source-map')
+// console.lo('source-map') 测试代码报错位置

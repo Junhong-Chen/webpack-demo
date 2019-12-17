@@ -44,4 +44,8 @@
 - html: html-webpack-plugin
 
 ## 源码映射
-- 解决压缩代码后无法找到错误代码位置的问题
+- 解决压缩代码后无法找到代码报错位置的问题
+
+## watch
+- 监听文件的变化，当它们修改后会重新编译
+- 模式默认是关闭的，不过在 webpack-dev-server 和 webpack-dev-middleware 里 watch 模式默认开启
