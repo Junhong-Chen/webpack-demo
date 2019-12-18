@@ -49,3 +49,8 @@
 ## watch
 - 监听文件的变化，当它们修改后会重新编译
 - 模式默认是关闭的，不过在 webpack-dev-server 和 webpack-dev-middleware 里 watch 模式默认开启
+
+## 常用插件
+- clean-webpack-plugin: 每次构建前清理指定文件夹，比如 /dist
+- copy-webpack-plugin: 将单个文件或整个目录复制到构建目录下
+- BannerPlugin(内置): 为每个 chunk 文件头部添加 banner

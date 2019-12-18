@@ -5,6 +5,8 @@ const MiniCSsExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production', // 打包模式，默认为production
@@ -144,7 +146,15 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({ // 自动加载模块
       $: 'jquery' // 相当于在每个模块中都写了 import $ from 'jquery'
-    })
+    }),
+    new CleanWebpackPlugin(), // 构建时自动清除 output.path 中的文件，注意在开启 watch 后观察不到效果，因为 watch 会实时更新编译后的文件
+    new CopyPlugin([ // 将单个文件或整个目录复制到构建目录下
+      {
+        from: 'static/img/vscode.png', // 需要复制的文件或文件夹的路径
+        to: 'img/', // 放到 output.path 中的 img 目录下
+      }
+    ]),
+    new webpack.BannerPlugin('make 2019 by Jay') // 为每个 chunk 文件头部添加 banner
   ],
   devServer: { // 开发服务器
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段
@@ -155,7 +165,7 @@ module.exports = {
   },
   // 此选项控制是否生成，以及如何生成 source-map。reference-link: https://www.webpackjs.com/configuration/devtool/
   devtool: 'source-map', // 这个配置('source-map')会将整个 source map 作为一个单独的文件生成，在生成环境中不建议使用
-  watch: true, // 编译时监听文件变化，实时更新编译后的文件
+  watch: false, // 编译时监听文件变化，实时更新编译后的文件
   watchOptions: {
     poll: 1000, // 每隔 1000 ms 检查一次变动
     aggregateTimeout: 500, // 在重新构建前增加延迟，也就是防抖，默认值是 300
