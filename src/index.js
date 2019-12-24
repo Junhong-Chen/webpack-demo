@@ -34,3 +34,16 @@ function log(target) {
 const foo = new Person('张三')
 
 console.log(foo.name)
+
+const xhr = new XMLHttpRequest()
+
+// xhr.open('get', '/api/user') // dev-server proxy
+xhr.open('get', '/user') // webpack-dev-middleware
+
+xhr.send()
+
+// const xhrMock = new XMLHttpRequest()
+
+// xhrMock.open('get', '/mock')
+
+// xhrMock.send()

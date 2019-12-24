@@ -158,10 +158,21 @@ module.exports = {
   ],
   devServer: { // 开发服务器
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段
-    port: 3000, // 端口
+    port: 8080, // 端口
     progress: true, // 进度条显示
     compress: false, // gzip 压缩
-    open: false // 运行后打开浏览器
+    open: false, // 运行后打开浏览器
+    // proxy: { // 跨域代理
+    //   '/api': {
+    //     target: 'http://localhost:3000/', // 以 /api 开头的请求，使用 http://localhost:3000 来访问
+    //     pathRewrite: {"^/api" : ""} //  去掉 /api
+    //   }
+    // },
+    before(app) { // 可以在这里写一些模拟数据
+      app.get('/mock', function(req, res) {
+        res.json({ 'before': '中间件' })
+      })
+    }
   },
   // 此选项控制是否生成，以及如何生成 source-map。reference-link: https://www.webpackjs.com/configuration/devtool/
   devtool: 'source-map', // 这个配置('source-map')会将整个 source map 作为一个单独的文件生成，在生成环境中不建议使用

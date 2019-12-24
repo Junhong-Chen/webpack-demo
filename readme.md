@@ -54,3 +54,8 @@
 - clean-webpack-plugin: 每次构建前清理指定文件夹，比如 /dist
 - copy-webpack-plugin: 将单个文件或整个目录复制到构建目录下
 - BannerPlugin(内置): 为每个 chunk 文件头部添加 banner
+
+## 跨域
+- dev-server 提供了 proxy，详细用法请查阅其文档: https://github.com/chimurai/http-proxy-middleware#options
+- dev-server 提供了 before 来添加自定义中间件
+- webpack-dev-middleware: 让客户端和服务端运行在同一个端口下
