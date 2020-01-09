@@ -1,8 +1,8 @@
 {
   "name": "webpack-demo",
-  "description": "- webpack、webpack-cli",
+  "description": "webpack 学习记录",
   "version": "1.0.0",
-  "main": "postcss.config.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Junhong-Chen/webpack-demo.git"

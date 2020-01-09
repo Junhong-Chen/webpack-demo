@@ -11,7 +11,7 @@
 
 ## webpack开发服务器
 - webpack 内置了一个以express实现的静态服务器，它并不会生成真实的打包文件，只是生产一个内存中的打包
-- 安装开发依赖: webpack-dve-server、html-webpack-plugin
+- 安装开发依赖: webpack-dev-server、html-webpack-plugin
 - 运行: npx webpack-dev-server
 
 ## babel: es2015 to es5
@@ -59,3 +59,10 @@
 - dev-server 提供了 proxy，详细用法请查阅其文档: https://github.com/chimurai/http-proxy-middleware#options
 - dev-server 提供了 before 来添加自定义中间件
 - webpack-dev-middleware: 让客户端和服务端运行在同一个端口下
+
+## 解析(resolve)
+- 如何解析模块，常用选项:
+- alias: 创建 import 或 require 的别名，来确保模块引入变得更简单
+- extensions: 自动解析确定的扩展，能够使用户在引入模块时不带扩展
+- modules: 告诉 webpack 解析模块时应该搜索的目录
+- mainFields: 当从 npm 包中导入模块时（例如 import * as D3 from 'd3'），此选项将决定在 package.json 中使用哪个字段导入模块

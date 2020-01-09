@@ -1,7 +1,7 @@
 // webpack 是 node 写出来的，它要使用 node 的写法
 const path = require('path') // 引入 path 模块
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCSsExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
@@ -81,7 +81,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCSsExtractPlugin.loader, // 将css打包成一个文件，并以link的形式插入到<head></head>中
+          MiniCssExtractPlugin.loader, // 将css打包成一个文件，并以link的形式插入到<head></head>中
           'css-loader', // 解释(interpret) @import 和 url()
           'postcss-loader' // 用js处理css，需要配置 postcss.config.js 文件。介绍：https://www.ibm.com/developerworks/cn/web/1604-postcss-css/index.html
         ]
@@ -119,6 +119,12 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    modules: [path.resolve('node_modules')], // 告诉 webpack 解析模块时应该搜索的目录，这样就不会自动向上级目录查找，缩小了查找范围
+    // alias: {}, // 别名
+    // mainFields: ['module', 'main'] // 此选项将决定在 package.json 中使用哪个字段导入模块
+    // extensions: ['.js', '.json'] // 自动解析确定的扩展，能够使用户在引入模块时不带扩展
+  },
   // optimization: { // 优化
   //   minimizer: [ // mode 改成 production 才会生效
   //     new TerserJSPlugin({}), // 使用 minimizer 选项时，必须也要加上这个插件才能压缩 js 文件
@@ -141,7 +147,7 @@ module.exports = {
     //   filename: 'demo.html',
     //   chunks: ['demo']
     // }),
-    new MiniCSsExtractPlugin({ // 将css单独打包成一个文件
+    new MiniCssExtractPlugin({ // 将css单独打包成一个文件
       filename: 'css/main.css', // 在css目录中生成 main.css
     }),
     new webpack.ProvidePlugin({ // 自动加载模块
