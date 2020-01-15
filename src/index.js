@@ -47,3 +47,5 @@ xhr.send()
 // xhrMock.open('get', '/mock')
 
 // xhrMock.send()
+
+console.log(process.env)

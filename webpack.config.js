@@ -1,15 +1,15 @@
 // webpack 是 node 写出来的，它要使用 node 的写法
+const webpack = require('webpack')
 const path = require('path') // 引入 path 模块
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  mode: 'production', // 打包模式，默认为production
+  // mode: 'development', // 打包模式，默认为production
   entry: './src/index.js', // 入口
   // entry: { // 多入口
   //   index: './src/index.js',
@@ -160,7 +160,7 @@ module.exports = {
         to: 'img/', // 放到 output.path 中的 img 目录下
       }
     ]),
-    new webpack.BannerPlugin('make 2019 by Jay') // 为每个 chunk 文件头部添加 banner
+    new webpack.BannerPlugin('make 2019 by Jay'), // 为每个 chunk 文件头部添加 banner
   ],
   devServer: { // 开发服务器
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段

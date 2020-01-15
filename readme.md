@@ -66,3 +66,7 @@
 - extensions: 自动解析确定的扩展，能够使用户在引入模块时不带扩展
 - modules: 告诉 webpack 解析模块时应该搜索的目录
 - mainFields: 当从 npm 包中导入模块时（例如 import * as D3 from 'd3'），此选项将决定在 package.json 中使用哪个字段导入模块
+
+## 环境变量
+- DefinePlugin: 允许创建一个在编译时可以配置的全局常量
+- webpack-merge: 合并配置对象

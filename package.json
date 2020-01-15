@@ -15,7 +15,8 @@
   "homepage": "https://github.com/Junhong-Chen/webpack-demo#readme",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack --config webapck.config.js"
+    "build:dev": "webpack --config webapck.dev.config.js",
+    "build:prod": "webpack --config webapck.prod.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -45,7 +46,8 @@
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
   },
   "browserslist": [
     "last 1 version",
