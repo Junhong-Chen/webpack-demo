@@ -70,3 +70,6 @@
 ## 环境变量
 - DefinePlugin: 允许创建一个在编译时可以配置的全局常量
 - webpack-merge: 合并配置对象
+
+## webpack优化
+- noParse: 防止 webpack 解析那些任何与给定正则表达式相匹配的文件

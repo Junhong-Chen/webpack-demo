@@ -9,7 +9,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  // mode: 'development', // 打包模式，默认为production
+  mode: 'development', // 打包模式，默认为production
   entry: './src/index.js', // 入口
   // entry: { // 多入口
   //   index: './src/index.js',
@@ -22,6 +22,7 @@ module.exports = {
     publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
   module: {
+    noParse: /jquery/, // 不去解析 jquery 中的依赖
     // loader的特点: 单一职责
     // loader加载顺序: 从右(下)到左(上)
     // rules中只有一个loader且不用配置参数时，use的值可以直接写一个字符串即可
