@@ -15,6 +15,12 @@ const image = new Image()
 image.src = green
 document.body.appendChild(image)
 
+import moment from 'moment'
+import 'moment/locale/zh-cn' // 在 webpack 中禁止引入所有的语言包，然后再单独引入中文包
+
+moment.locale('zh-cn')
+console.log(moment().endOf('day').fromNow())
+
 
 const str = require('./demo.js') // 因为 babel 会把 es2015 模块转换成符合 commonjs 规范的模块，所以可以混用两者的模块语法
 

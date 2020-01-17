@@ -73,3 +73,4 @@
 
 ## webpack优化
 - noParse: 防止 webpack 解析那些任何与给定正则表达式相匹配的文件
+- IgnorePlugin: 在 import 或 require 调用时，防止生成正则表达式匹配的模块

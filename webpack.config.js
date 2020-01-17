@@ -133,6 +133,7 @@ module.exports = {
   //   ]
   // },
   plugins: [ // 插件
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // import moment 时禁止生成 locale 中的模块
     new HtmlWebpackPlugin({ // 生成一个开发服务用的入口文件
       template: './src/index.html', // 生成入口文件所需要参考的模板
       filename: 'index.html', // 入口文件的文件名，可不填
