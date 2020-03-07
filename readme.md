@@ -75,4 +75,9 @@
 - noParse: 防止 webpack 解析那些任何与给定正则表达式相匹配的文件
 - IgnorePlugin: 在 import 或 require 调用时，防止生成正则表达式匹配的模块
 - DllPlugin: DLLPlugin 和 DLLReferencePlugin 用某种方法实现了拆分 bundles，同时还大大提升了构建的速度
-- Happypack: 打包时把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。
+- Happypack: 打包时把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程
+- tree shaking: 用于移除 JavaScript 上下文中的未引用代码(dead-code)，它依赖于 ES2015 模块系统中的静态结构特性，例如 import 和 export（使用 production 模式打包时自动开启）
+- scope hoisting: 将所有模块都用函数包裹起来，然后自己实现了一套模块加载、执行与缓存的功能，它也依赖于 ES2015 模块系统中的静态结构特性（使用 production 模式打包时自动开启）
+
+## 抽离公共代码
+- optimization: 构建多页面应用时，可以将被多个页面共同引用的代码抽离出来

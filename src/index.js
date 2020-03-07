@@ -18,6 +18,8 @@ document.body.appendChild(image)
 import moment from 'moment'
 import 'moment/locale/zh-cn' // 在 webpack 中禁止引入所有的语言包，然后再单独引入中文包
 
+import './common'
+
 moment.locale('zh-cn')
 console.log(moment().endOf('day').fromNow())
 

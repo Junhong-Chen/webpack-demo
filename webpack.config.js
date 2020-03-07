@@ -10,14 +10,14 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development', // 打包模式，默认为production
-  entry: './src/index.js', // 入口
-  // entry: { // 多入口
-  //   index: './src/index.js',
-  //   demo: './src/demo.js'
-  // },
+  // entry: './src/index.js', // 入口
+  entry: { // 多入口
+    index: './src/index.js',
+    demo: './src/demo.js'
+  },
   output: { // 出口
-    filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
-    // filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
+    // filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
+    filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
     path: path.resolve(__dirname, 'dist'), // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
     publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
@@ -126,12 +126,28 @@ module.exports = {
     // mainFields: ['module', 'main'] // 此选项将决定在 package.json 中使用哪个字段导入模块
     // extensions: ['.js', '.json'] // 自动解析确定的扩展，能够使用户在引入模块时不带扩展
   },
-  // optimization: { // 优化
+  optimization: { // 优化
   //   minimizer: [ // mode 改成 production 才会生效
   //     new TerserJSPlugin({}), // 使用 minimizer 选项时，必须也要加上这个插件才能压缩 js 文件
   //     new OptimizeCSSAssetsPlugin({}) // 压缩 css 文件
   //   ]
-  // },
+    splitChunks: { // 分割代码块
+      cacheGroups: { // 缓存组
+        common: { // 公共模块
+          chunks: 'initial',
+          minSize: 0, // 超过 0 字节则抽取
+          minChunks: 2 // 超过 2 次引用则抽取
+        },
+        vendor: { // 第三方
+          priority: 1, // 解析权重，先解析第三方模块
+          test: /node_modules/,
+          chunks: 'initial',
+          minSize: 0,
+          minChunks: 2
+        }
+      }
+    }
+  },
   plugins: [ // 插件
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // import moment 时禁止生成 locale 中的模块
     new HtmlWebpackPlugin({ // 生成一个开发服务用的入口文件
