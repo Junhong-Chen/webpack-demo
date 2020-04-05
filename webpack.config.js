@@ -10,14 +10,14 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development', // 打包模式，默认为production
-  // entry: './src/index.js', // 入口
-  entry: { // 多入口
-    index: './src/index.js',
-    demo: './src/demo.js'
-  },
+  entry: './src/index.js', // 入口
+  // entry: { // 多入口
+  //   index: './src/index.js',
+  //   demo: './src/demo.js'
+  // },
   output: { // 出口
-    // filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
-    filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
+    filename: 'bundle.js', // 打包后的文件名。可添加hash戳，命名为: bundle.[hash].js；也可限制hash戳的长度，比如8位: bundle.[hash:8].js
+    // filename: '[name].js', // 有多个出口打包时的命名, [name] 表示多个 js 文件的名称
     path: path.resolve(__dirname, 'dist'), // 打包后的文件路径，必须填写绝对路径，所以需要用到内置的path模块将相对路径解析成绝对路径。__dirname 为当前文件的绝对路径，也可以不填。
     publicPath: '' // 在所有资源被打包时加上一个路径前缀
   },
@@ -179,8 +179,11 @@ module.exports = {
       }
     ]),
     new webpack.BannerPlugin('make 2019 by Jay'), // 为每个 chunk 文件头部添加 banner
+    new webpack.NamedModulesPlugin(), // 打印更新的模块路径
+    new webpack.HotModuleReplacementPlugin() // 热更新插件
   ],
   devServer: { // 开发服务器
+    hot: true, // 启用热更新
     contentBase: './dist', // 静态服务的目录地址，正常来说目录下可能没有index.html文件，所以需要借助 HtmlWebpackPlugin 来生成一个入口文件，配置了这个插件后可以不填写这个字段
     port: 8080, // 端口
     progress: true, // 进度条显示

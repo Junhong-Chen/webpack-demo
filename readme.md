@@ -83,4 +83,7 @@
 - optimization: 构建多页面应用时，可以将被多个页面共同引用的代码抽离出来
 
 ## 懒加载
-- 通过 import('需要引入的文件').then(//do something) 的形式来进行懒加载
+- babel/plugin-syntax-dynamic-import: 通过 import('需要引入的文件').then(//do something) 的形式来进行懒加载
+
+## 热更新
+- Hot Module Replacement，简称HMR，无需完全刷新整个页面的同时，更新模块。节省开发时间、提升开发体验。

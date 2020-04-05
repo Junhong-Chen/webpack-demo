@@ -1,54 +1,61 @@
 // 两种引入css的方式:
 // import style from './index.css'
-require('./index.css')
-require('./index.scss')
+// require('./index.css')
+// require('./index.scss')
 
 /* eslint-disable */
 // import $ from 'expose-loader?$!jquery' // 内联loader，可读性不好，建议配置在webpack中
-import $ from 'jquery'
+// import $ from 'jquery'
 /* eslint-disable */
 // console.log(window.$)
-console.log(window.$) // CDN
+// console.log(window.$) // CDN
 
-import green from '../static/img/green.jpg' // 这里也可以用 require 语法
-const image = new Image()
-image.src = green
-document.body.appendChild(image)
+// import green from '../static/img/green.jpg' // 这里也可以用 require 语法
+// const image = new Image()
+// image.src = green
+// document.body.appendChild(image)
 
-import moment from 'moment'
-import 'moment/locale/zh-cn' // 在 webpack 中禁止引入所有的语言包，然后再单独引入中文包
+// import moment from 'moment'
+// import 'moment/locale/zh-cn' // 在 webpack 中禁止引入所有的语言包，然后再单独引入中文包
 
 import './common'
 
-moment.locale('zh-cn')
-console.log(moment().endOf('day').fromNow())
-
-
-const str = require('./demo.js') // 因为 babel 会把 es2015 模块转换成符合 commonjs 规范的模块，所以可以混用两者的模块语法
-
-console.log(str)
-
-@log
-class Person {
-  constructor(name) {
-    this.name = name
-  }
+if (module.hot) { // 热更新及模块懒加载测试，测试时别忘了把其他代码注释掉
+  module.hot.accept('./common', () => {
+    const variable = require('./common').default
+    console.log(variable)
+  })
 }
 
-function log(target) {
-  console.log(target)
-}
+// moment.locale('zh-cn')
+// console.log(moment().endOf('day').fromNow())
 
-const foo = new Person('张三')
 
-console.log(foo.name)
+// const str = require('./demo.js') // 因为 babel 会把 es2015 模块转换成符合 commonjs 规范的模块，所以可以混用两者的模块语法
 
-const xhr = new XMLHttpRequest()
+// console.log(str)
+
+// @log
+// class Person {
+//   constructor(name) {
+//     this.name = name
+//   }
+// }
+
+// function log(target) {
+//   console.log(target)
+// }
+
+// const foo = new Person('张三')
+
+// console.log(foo.name)
+
+// const xhr = new XMLHttpRequest()
 
 // xhr.open('get', '/api/user') // dev-server proxy
-xhr.open('get', '/user') // webpack-dev-middleware
+// xhr.open('get', '/user') // webpack-dev-middleware
 
-xhr.send()
+// xhr.send()
 
 // const xhrMock = new XMLHttpRequest()
 
@@ -56,4 +63,4 @@ xhr.send()
 
 // xhrMock.send()
 
-console.log(process.env)
+// console.log(process.env)
